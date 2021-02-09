@@ -1,9 +1,5 @@
 # Fastfeet
-App - Transportadora
-
-
-##FastFeet 
+App para empresa Transportadora
 
 Moda de calçados
 
-App para empresa transportadora Transportadora
