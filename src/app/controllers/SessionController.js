@@ -9,12 +9,12 @@ class SessionControler {
     async store(request, response) {
         const schema = Yup.object().shape({
             email: Yup.string().required(),
-            password: Yup.string().required()
+            password: Yup.string().required(),
         });
 
-        if(!(await schema.isValid(request.body))) {
-            return response.status(400).json({ error: 'Validation fails' })
-        };
+        if (!(await schema.isValid(request.body))) {
+            return response.status(400).json({ error: 'Validation fails' });
+        }
 
         const { email, password } = request.body;
 

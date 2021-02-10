@@ -7,32 +7,38 @@ class UserController {
             name: Yup.string(),
             email: Yup.string(),
             oldPassword: Yup.string(),
-            password: Yup.string().min(6).when('oldPassword', (oldPassword, field) => 
-                oldPassword ? field.required() : field
-            ),
-            confirmPassword: Yup.string().when('password', (password, field) => 
+            password: Yup.string()
+                .min(6)
+                .when('oldPassword', (oldPassword, field) =>
+                    oldPassword ? field.required() : field
+                ),
+            confirmPassword: Yup.string().when('password', (password, field) =>
                 password ? field.required().oneOf([Yup.ref('password')]) : field
             ),
         });
 
-        if(!(await schema.isValid(request.body))){
+        if (!(await schema.isValid(request.body))) {
             return response.status(400).json({ error: 'Validation fails' });
-        };
+        }
 
         const { email, oldPassword } = request.body;
 
         const user = await User.findByPk(request.userId);
 
         if (email && email !== user.email) {
-            const userExists = await User.findOne({ where: { email } })
+            const userExists = await User.findOne({ where: { email } });
 
             if (userExists) {
-                return response.status(400).json({ error: 'User already exists.' });
+                return response
+                    .status(400)
+                    .json({ error: 'User already exists.' });
             }
         }
 
         if (oldPassword && !(await user.checkPassword(oldPassword))) {
-            return response.status(401).json({ error: 'Password does not match' });
+            return response
+                .status(401)
+                .json({ error: 'Password does not match' });
         }
 
         const { id, name } = await user.update(request.body);
