@@ -7,16 +7,17 @@ module.exports = {
                 autoIncrement: true,
                 primaryKey: true,
             },
-            recipient: {
+            name: {
                 type: Sequelize.STRING,
                 allowNull: false,
+                unique: true,
             },
             street: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
             number: {
-                type: Sequelize.STRING,
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             complement: {
@@ -32,7 +33,7 @@ module.exports = {
                 allowNull: false,
             },
             cep: {
-                type: Sequelize.STRING,
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             created_at: {
