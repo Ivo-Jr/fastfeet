@@ -9,9 +9,10 @@ import authMiddleware from './app/middleware/auth';
 const routes = new Router();
 
 routes.post('/sessions', SessionController.store);
-routes.post('/recipient', RecipientController.store);
 
 routes.use(authMiddleware);
+
+routes.post('/recipient', RecipientController.store);
 
 routes.get('/list', RecipientController.index);
 
